@@ -13,6 +13,7 @@ function checkInput(){
     if((0 < day && day <= 31) && (0 < month && month <= 12) && (1900 < year && year <= date.getFullYear())){
         $("#dateForm").slideUp(300);
         $("#submitButton").slideUp(300);
+        $("#credits").hide(0);
 
         calcDiff(day, month, year);
       }
@@ -44,7 +45,7 @@ function makeGrid(daysAlive, weeksAlive, yearsAlive){
 
   $("#main").html("<div class='grid'>\n");
   $("#main").append("<div class='grid-sizer'></div>\n");
-  /*$("#main").append("<div class='grid-item lived'></div>\n");*/
+
   for(var i = 0; i < weeksAlive; i++){
     $("#main").append("<div class='grid-item lived'></div>\n");
   }
@@ -72,6 +73,8 @@ function makeGrid(daysAlive, weeksAlive, yearsAlive){
 
 
 $(function() {
+  var d = new Date();
+  $("#credits").html("(C) " + d.getFullYear() + " by Luca Fluri" );
   checkInput();
 
 
