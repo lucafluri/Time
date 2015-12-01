@@ -1,6 +1,8 @@
 # Time
 A minimalistic visualization of your life  
 
+A small web app project to improve my web development skills
+
 http://ltlemonjuice.github.io/Time/  
 
 **Status:** In progress...
