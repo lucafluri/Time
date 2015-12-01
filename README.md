@@ -1,5 +1,7 @@
 # Time
-A minimalistic visualization of your life
+A minimalistic visualization of your life  
+
+http://ltlemonjuice.github.io/Time/  
 
 **Status:** In progress...
 
