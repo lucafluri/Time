@@ -34,17 +34,25 @@ function calcDiff(day, month, year){
   var yearsAlive = daysAlive/365;
   /*alert("Days: " + daysAlive + " Weeks: " + weeksAlive + " Years: " + yearsAlive);*/
 
-  makeGrid();
+  makeGrid(daysAlive, weeksAlive, yearsAlive);
 
 }
 
-function makeGrid(){
+function makeGrid(daysAlive, weeksAlive, yearsAlive){
   /*HTML TEST*/
   /*$("#main").html("<p>TEST</p>");*/
 
   $("#main").html("<div class='grid'>\n");
   $("#main").append("<div class='grid-sizer'></div>\n");
-  $("#main").append("<div class='grid-item lived'></div>\n");
+  /*$("#main").append("<div class='grid-item lived'></div>\n");*/
+  for(var i = 0; i < weeksAlive; i++){
+    $("#main").append("<div class='grid-item lived'></div>\n");
+  }
+
+  for(var i = 0; i < (4160-weeksAlive); i++){
+    $("#main").append("<div class='grid-item toLive'></div>\n");
+  }
+
   $("#main").append("</div>");
 
 
