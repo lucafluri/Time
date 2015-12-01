@@ -15,7 +15,8 @@ function checkInput(){
         $("#submitButton").slideUp(300);
         $("#credits").hide(0);
 
-        calcDiff(day, month, year);
+        setTimeout(calcDiff(day, month, year), 300);
+
       }
     else {
       alert("Please enter valid birthdate");
@@ -64,8 +65,8 @@ function makeGrid(daysAlive, weeksAlive, yearsAlive){
     percentPosition: true
   });
 
-  $("#subtitle").html("This is your life until age 80. Every bubble represents a week. </br> Black = Past and Yellow = Future </br>");
-  
+  $("#subtitle").html("This is your life until age 80. Every bubble represents a week. </br> ");
+  $("#subtitle").append("You have already lived the black ones.</br>")
 }
 
 
