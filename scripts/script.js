@@ -64,7 +64,8 @@ function makeGrid(daysAlive, weeksAlive, yearsAlive){
     percentPosition: true
   });
 
-
+  $("#subtitle").html("This is your life until age 80. Every bubble represents a week. </br> Black = Past and Yellow = Future </br>");
+  
 }
 
 
