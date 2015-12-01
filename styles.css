@@ -1,0 +1,133 @@
+h1 {
+  font-family: 'Avant Garde', Avantgarde, 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  font-style: normal;
+  font-size: 100px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 0;
+
+
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  background: -webkit-linear-gradient(#006BA1, #003A57); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#006BA1, #003A57); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#006BA1, #003A57); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#006BA1, #003A57); /* Standard syntax */
+  background-repeat: no-repeat;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-attachment: fixed;
+
+}
+
+p {
+  font-family: 'Avant Garde', Avantgarde, 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  font-style: normal;
+  color: #171717;
+  text-align: center;
+}
+
+#subtitle {
+  font-family: 'Avant Garde', Avantgarde, 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  font-style: normal;
+  font-size: 20px;
+  color: #171717;
+  text-align: center;
+
+}
+
+#submitButton {
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  font-family: 'Avant Garde', Avantgarde, 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  font-style: normal;
+  font-size: 20px;
+  background: #e1ff00;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  border: none;
+}
+
+#submitButton:hover, #submitButton:focus {
+  background: #bbd400;
+  text-decoration: none;
+  border: none;
+  outline: none !important;
+}
+
+
+
+form {
+  border: none;
+  margin: auto;
+  position: absolute;
+  /*background-color: #171717;*/
+  top: 35%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%);
+}
+
+
+
+input {
+  border: 0px;
+  border-style: none;
+  text-align: center;
+
+}
+
+input:focus {
+  outline: none !important;
+  border: 0px;
+}
+
+#dayIn, #monthIn {
+  font-family: 'Avant Garde', Avantgarde, 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  font-style: normal;
+  font-size: 25px;
+  -webkit-border-radius: 20;
+  -moz-border-radius: 20;
+  border-radius: 20px;
+  max-width: 55px;
+  border: none;
+
+}
+
+#yearIn {
+  font-family: 'Avant Garde', Avantgarde, 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  font-style: normal;
+  font-size: 25px;
+  -webkit-border-radius: 20;
+  -moz-border-radius: 20;
+  border-radius: 20px;
+  max-width: 75px
+}
+
+#submitButton {
+  border: none;
+  position: absolute;
+  top: 200%;
+  left: 50%;
+  transform: translate(-50%);
+
+
+
+}
+
+#credits {
+  font-size: 10px;
+  margin: auto;
+  position: absolute;
+  bottom: 2%;
+  left: 50%;
+  transform: translate(-50%);
+
+
+}

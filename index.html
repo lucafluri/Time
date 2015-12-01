@@ -1,0 +1,32 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>T[I]ME</title>
+  <meta name="description" content="T[I]ME">
+  <meta name="author" content="Luca Fluri">
+  <script src="jquery-1.11.3.min.js"></script>
+  <script src="scripts/script.js"></script>
+  <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+
+  <h1 id="title">T[I]ME</h1>
+  <p id="subtitle">A minimalistic visualization of your life </p>
+
+
+  <form class="dateInput" onsubmit="submit()" id="dateForm" action="" method="post">
+    <input type="text" id="dayIn" placeholder="DD" required>
+    <input type="text" id="monthIn" placeholder="MM" required>
+    <input type="text" id="yearIn"placeholder="YYYY" required>
+    <button type="button" id="submitButton"> Visualize!</button>
+  </form>
+
+<p id="credits">(C) 2015 by Luca Fluri</p>
+</body>
+
+</html>
