@@ -5,4 +5,4 @@ A minimalistic visualization of your life
 
 ###Idea:
 A Web App which visualizes your lived time compared to an estimate of your life to live.  
-Should be clean, simple minimalistic and is solely intended as a motivator.
+Should be clean, simple, minimalistic and is solely intended as a motivator.
