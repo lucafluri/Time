@@ -8,6 +8,7 @@
   <meta name="description" content="T[I]ME">
   <meta name="author" content="Luca Fluri">
   <script src="jquery-1.11.3.min.js"></script>
+  <script src="masonry.pkgd.js "></script>
   <script src="scripts/script.js"></script>
   <link rel="stylesheet" href="styles.css">
 
@@ -18,14 +19,14 @@
   <h1 id="title">T[I]ME</h1>
   <p id="subtitle">A minimalistic visualization of your life </p>
 
-
+<div id="main">
   <form class="dateInput" onsubmit="submit()" id="dateForm" action="" method="post">
     <input type="text" id="dayIn" placeholder="DD" required>
     <input type="text" id="monthIn" placeholder="MM" required>
     <input type="text" id="yearIn"placeholder="YYYY" required>
     <button type="button" id="submitButton"> Visualize!</button>
   </form>
-
+</div>
 <p id="credits">(C) 2015 by Luca Fluri</p>
 </body>
 
