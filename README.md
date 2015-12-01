@@ -1,4 +1,4 @@
-# T[i]me
+# Time
 A minimalistic visualization of your life
 
 **Status:** In progress...

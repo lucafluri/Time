@@ -13,6 +13,7 @@ function checkInput(){
     if((0 < day && day <= 31) && (0 < month && month <= 12) && (1900 < year && year <= date.getFullYear())){
         $("#dateForm").slideUp(300);
         $("#submitButton").slideUp(300);
+        $("#credits").hide(0);
 
         calcDiff(day, month, year);
       }
@@ -34,17 +35,25 @@ function calcDiff(day, month, year){
   var yearsAlive = daysAlive/365;
   /*alert("Days: " + daysAlive + " Weeks: " + weeksAlive + " Years: " + yearsAlive);*/
 
-  makeGrid();
+  makeGrid(daysAlive, weeksAlive, yearsAlive);
 
 }
 
-function makeGrid(){
+function makeGrid(daysAlive, weeksAlive, yearsAlive){
   /*HTML TEST*/
   /*$("#main").html("<p>TEST</p>");*/
 
   $("#main").html("<div class='grid'>\n");
   $("#main").append("<div class='grid-sizer'></div>\n");
-  $("#main").append("<div class='grid-item lived'></div>\n");
+
+  for(var i = 0; i < weeksAlive; i++){
+    $("#main").append("<div class='grid-item lived'></div>\n");
+  }
+
+  for(var i = 0; i < (4160-weeksAlive); i++){
+    $("#main").append("<div class='grid-item toLive'></div>\n");
+  }
+
   $("#main").append("</div>");
 
 
@@ -55,7 +64,8 @@ function makeGrid(){
     percentPosition: true
   });
 
-
+  $("#subtitle").html("This is your life until age 80. Every bubble represents a week. </br> Black = Past and Yellow = Future </br>");
+  
 }
 
 
@@ -64,6 +74,8 @@ function makeGrid(){
 
 
 $(function() {
+  var d = new Date();
+  $("#credits").html("(C) " + d.getFullYear() + " by Luca Fluri" );
   checkInput();
 
 
