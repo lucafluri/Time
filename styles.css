@@ -8,6 +8,7 @@ h1 {
   position: relative;
 
 
+
 }
 
 body {
@@ -39,6 +40,7 @@ p {
   font-size: 20px;
   color: #171717;
   text-align: center;
+  margin-bottom: 40px;
 
 }
 
@@ -51,7 +53,6 @@ form {
   margin: auto;
   position: absolute;
   left: 50%;
-  /* bring your own prefixes */
   transform: translate(-50%);
 }
 
@@ -118,8 +119,14 @@ input:focus {
   outline: none !important;
 }
 
+#main {
+  margin-left: 10px;
+  /*margin-right: 10px;*/
+}
+
 .grid {
   /*max-width: 1200px;*/
+
 }
 
 /* clearfix */
@@ -135,17 +142,19 @@ input:focus {
 }
 
 .grid-item {
-  height: 120px;
+  width: 17px;
+  height: 17px;
   float: left;
-  background: #D26;
-  border: 2px solid #333;
-  border-color: hsla(0, 0%, 0%, 0.5);
-  border-radius: 5px;
+  border-radius: 50%;
 
 }
 
 .lived {
+  background: #171717;
+}
 
+.toLive {
+  background: #e1ff00;
 }
 
 
@@ -153,9 +162,11 @@ input:focus {
 #credits {
   font-size: 10px;
   margin: auto;
-  position: fixed;
-  bottom: 2%;
+  text-align: center;
+  position: absolute;
   left: 50%;
+  bottom: 5px;
   transform: translate(-50%);
+
 
 }
