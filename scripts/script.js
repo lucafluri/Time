@@ -10,7 +10,7 @@ function checkInput(){
     var month = $("#monthIn").val();
     var year = $("#yearIn").val();
 
-    if((0 < day && day <= 31) && (0 < month && month <= 12) && (1900 < year && year <= date.getFullYear())){
+    if((0 < day && day <= 31) && (0 < month && month <= 12) && ((date.getFullYear()-110) < year && year <= date.getFullYear())){
         $("#dateForm").slideUp(300);
         $("#submitButton").slideUp(300);
         $("#credits").hide(0);

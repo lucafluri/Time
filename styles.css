@@ -11,9 +11,7 @@ h1 {
 
 }
 
-body {
-  height: 100%;
-  margin: 0;
+html {
   background: -webkit-linear-gradient(#006BA1, #003A57); /* For Safari 5.1 to 6.0 */
   background: -o-linear-gradient(#006BA1, #003A57); /* For Opera 11.1 to 12.0 */
   background: -moz-linear-gradient(#006BA1, #003A57); /* For Firefox 3.6 to 15 */
@@ -24,6 +22,12 @@ body {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-attachment: fixed;
+
+}
+
+body {
+  height: 100%;
+  margin: 0;
 
 }
 
