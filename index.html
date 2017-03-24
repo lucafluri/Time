@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=600">
 
   <title>TIME</title>
   <meta name="description" content="A minimalistic visualization of your life">
@@ -13,6 +14,7 @@
   <script src="scripts/script.js"></script>
   <link rel="stylesheet" href="styles.css">
 
+  <meta name="google-site-verification" content="93c-l3iCnA_vMHMj2UVUVbCw8x2y-Eim1ajYuvLWCTQ" />
 </head>
 
 <body>
@@ -23,9 +25,12 @@
 <div id="main">
 
   <form class="dateInput" onsubmit="submit()" id="dateForm" action="" method="post">
-    <input type="text" id="dayIn" placeholder="DD" required>
-    <input type="text" id="monthIn" placeholder="MM" required>
-    <input type="text" id="yearIn"placeholder="YYYY" required>
+    <div id="inputs">
+      <input type="number" id="dayIn" placeholder="DD" required>
+      <input type="number" id="monthIn" placeholder="MM" required>
+      <input type="number" id="yearIn"placeholder="YYYY" required>
+    </div>
+
     <button type="button" id="submitButton"> Visualize!</button>
   </form>
 
