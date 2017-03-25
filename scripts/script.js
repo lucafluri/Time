@@ -12,6 +12,14 @@ function parse(str) {
     });
 }
 
+function autotab(current,to){
+    if (current.getAttribute &&
+      current.value.length==current.getAttribute("maxlength")) {
+        to.focus()
+        }
+}
+
+
 function checkInput(){
   $("#submitButton").on("click", function() {
     var date = new Date();
@@ -92,7 +100,7 @@ function makeGrid(daysAlive, weeksAlive, yearsAlive){
     percentPosition: true
   });
 
-  $("#subtitle").html("This is your life until age 80. Every bubble represents a week. </br> ");
+  $("#subtitle").html("This is your life until age 80.</br> Every bubble represents a week. </br> ");
   $("#subtitle").append("You have already lived the black ones.</br></br>")
   $("#subtitle").append("Reload page to enter a new date")
 }
