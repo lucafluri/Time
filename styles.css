@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Kanit:700|Open+Sans:300i');
 
 
+
+
+
+
   h1 {
     font-family: 'Kanit', sans-serif;  font-style: normal;
     font-size: 100px;
@@ -16,14 +20,6 @@
   html {
     min-height: 100%;
     margin: 0;
-
-
-  }
-
-  body {
-    height: 100%;
-    margin: 0;
-    position: static;
     background: -webkit-linear-gradient(#006BA1, #003A57) fixed; /* For Safari 5.1 to 6.0 */
     background: -o-linear-gradient(#006BA1, #003A57) fixed; /* For Opera 11.1 to 12.0 */
     background: -moz-linear-gradient(#006BA1, #003A57) fixed; /* For Firefox 3.6 to 15 */
@@ -33,7 +29,14 @@
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
-    background-attachment: fixed;
+    background-attachment: scroll;
+
+  }
+
+  body {
+    height: 100%;
+    margin: 0;
+
   }
 
   p {
@@ -46,7 +49,6 @@
     font-family: 'Open Sans', sans-serif;  font-style: normal;
     font-size: 20px;
     color: #171717;
-    position: relative;
     text-align: center;
     margin-bottom: 40px;
 
@@ -59,9 +61,9 @@
   form {
     border: none;
     margin: auto;
-    position: relative;
-    width: 380px;
-
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
   }
 
 
@@ -70,8 +72,6 @@
     border: 0px;
     border-style: none;
     text-align: center;
-    margin: auto;
-
 
   }
 
@@ -80,31 +80,30 @@
     border: 0px;
   }
 
-  #dayIn, #monthIn {
+  #dayIn, #monthIn, #hIn, #mIn {
     font-family: 'Open Sans', sans-serif;  font-style: normal;
-    font-size: 25px;
+    font-size: 20px;
     -webkit-border-radius: 20;
     -moz-border-radius: 20;
     border-radius: 20px;
-    max-width: 50px;
+    max-width: 55px;
     border: none;
 
   }
 
   #yearIn {
     font-family: 'Open Sans', sans-serif;  font-style: normal;
-    font-size: 25px;
+    font-size: 20px;
     -webkit-border-radius: 20;
     -moz-border-radius: 20;
     border-radius: 20px;
-    max-width: 70px
+    max-width: 75px
   }
 
-  #inputs{
-    position: absolute;
-    margin: auto;
-    left: 50%;
-    transform: translate(-50%);
+
+  #time {
+    margin-top: 10px;
+    margin-left: 41px;
   }
 
   #submitButton {
@@ -118,12 +117,10 @@
     padding: 10px 20px 10px 20px;
     text-decoration: none;
     border: none;
-    position: relative;
+    position: absolute;
+    top: 150%;
     left: 50%;
-    top: 60px;
     transform: translate(-50%);
-
-
 
 
 
@@ -136,16 +133,19 @@
     outline: none !important;
   }
 
-  body {
+
+
+  #main {
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 10px;
     left: 50%;
     max-width: 988px;
   }
 
   .grid {
 
-
+    margin-bottom: 20px;
   }
 
   /* clearfix */
@@ -188,15 +188,16 @@
   }
 
 
-#creditspace {
-  height: 20px;
-}
+
+
 
   #credits {
     font-size: 10px;
-    position: relative;
+    margin: auto;
+    text-align: center;
+    position: absolute;
     left: 50%;
-    top: 100px;
+    bottom: 5px;
     transform: translate(-50%);
 
 
@@ -206,29 +207,202 @@
 
 
 
-@media (min-width: 1000px) {
-  body {
-    max-width: 988px;
-  }
-}
+
 
 @media (max-width: 1000px) {
-  body {
-    max-width: 494px;
-    background: #006BA1;
-  }
 
-  h1 {
-    font-size: 200px;
-    margin-bottom: 0;
-    position: relative;
-    top: -30px;
-  }
+    h1 {
+      font-family: 'Kanit', sans-serif;  font-style: normal;
+      font-size: 100px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 0;
+      position: relative;
+      margin-top: 20px;
 
-  #subtitle {
-    font-size: 25px;
-    margin-bottom: 0px;
-    top: -50px;
 
-  }
+    }
+
+    html {
+      min-height: 100%;
+      margin: 0;
+
+
+    }
+
+    body {
+      height: 100%;
+      margin: 0;
+      position: static;
+      background: -webkit-linear-gradient(#006BA1, #003A57) fixed; /* For Safari 5.1 to 6.0 */
+      background: -o-linear-gradient(#006BA1, #003A57) fixed; /* For Opera 11.1 to 12.0 */
+      background: -moz-linear-gradient(#006BA1, #003A57) fixed; /* For Firefox 3.6 to 15 */
+      background: linear-gradient(#006BA1, #003A57) fixed; /* Standard syntax */
+      background-repeat: no-repeat;
+      background-size: cover;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-attachment: fixed;
+    }
+
+    p {
+      font-family: 'Open Sans', sans-serif;  font-style: normal;
+      color: #171717;
+      text-align: center;
+    }
+
+    #subtitle {
+      font-family: 'Open Sans', sans-serif;  font-style: normal;
+      font-size: 20px;
+      color: #171717;
+      position: relative;
+      text-align: center;
+      margin-bottom: 40px;
+
+    }
+
+
+
+
+    form {
+      border: none;
+      margin: auto;
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%);
+    }
+
+
+
+    input {
+      border: 0px;
+      border-style: none;
+      text-align: center;
+
+    }
+
+    input:focus {
+      outline: none !important;
+      border: 0px;
+    }
+
+    #dayIn, #monthIn, #hIn, #mIn {
+      font-family: 'Open Sans', sans-serif;  font-style: normal;
+      font-size: 20px;
+      -webkit-border-radius: 20;
+      -moz-border-radius: 20;
+      border-radius: 20px;
+      max-width: 55px;
+      border: none;
+
+    }
+
+    #yearIn {
+      font-family: 'Open Sans', sans-serif;  font-style: normal;
+      font-size: 20px;
+      -webkit-border-radius: 20;
+      -moz-border-radius: 20;
+      border-radius: 20px;
+      max-width: 75px
+    }
+
+
+    #time {
+      margin-top: 10px;
+      margin-left: 41px;
+    }
+
+    #submitButton {
+      -webkit-border-radius: 28;
+      -moz-border-radius: 28;
+      border-radius: 28px;
+      font-family: 'Open Sans', sans-serif;  font-style: normal;
+      font-style: normal;
+      font-size: 20px;
+      background: #e1ff00;
+      padding: 10px 20px 10px 20px;
+      text-decoration: none;
+      border: none;
+      position: absolute;
+      top: 150%;
+      left: 50%;
+      transform: translate(-50%);
+
+
+
+    }
+
+    #submitButton:hover, #submitButton:focus {
+      background: #bbd400;
+      text-decoration: none;
+      border: none;
+      outline: none !important;
+    }
+
+    #main {
+      margin-left: auto;
+      margin-right: auto;
+      left: 50%;
+      max-width: 494px;
+    }
+
+    .grid {
+
+
+    }
+
+    /* clearfix */
+    .grid:after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+
+    .grid-sizer,
+    .grid-item {
+      width: 20%;
+    }
+
+    .grid-item {
+      width: 17px;
+      height: 17px;
+      float: left;
+      border-radius: 50%;
+      margin: 1px;
+
+    }
+
+    .cyear {
+      background: #ff0000;
+      font-family: 'Kanit', sans-serif;  font-style: normal;
+      font-size: 12px;
+      text-align: center;
+      vertical-align: middle;;
+
+
+    }
+
+    .lived {
+      background: #171717;
+    }
+
+    .toLive {
+      background: #e1ff00;
+    }
+
+
+
+
+
+    #credits {
+      font-size: 10px;
+      position: relative;
+      left: 50%;
+      top: 200px;
+      transform: translate(-50%);
+
+
+    }
+
 }

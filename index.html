@@ -20,25 +20,26 @@
 <body>
 
   <h1 id="title">TIME</h1>
-  <p id="subtitle">A minimalistic visualization of your life </p>
+  <p id="subtitle">A minimalistic visualization of your life </br>(hh:mm is optional) </p>
 
 <div id="main">
 
-  <form class="dateInput" onsubmit="submit()" name="dateForm" id="dateForm" action="" method="post">
+  <form class="dateInput" onsubmit="submit()" id="dateForm" action="" method="post">
     <div id="inputs">
-      <input type="tel" name="dayIn" id="dayIn" placeholder="DD" required onKeyup="autotab(this, document.dateForm.monthIn)" size="2" maxlength="2">
-      <input type="tel" name="monthIn" id="monthIn" placeholder="MM" required onKeyup="autotab(this, document.dateForm.yearIn)" size="2" maxlength="2">
-      <input type="tel" name="yearIn" id="yearIn" placeholder="YYYY" required onKeyup="autotab(this, document.dateForm.submitButton)" size="4" maxlength="4">
+      <input type="number" id="dayIn" placeholder="DD" required>
+      <input type="number" id="monthIn" placeholder="MM" required>
+      <input type="number" id="yearIn"placeholder="YYYY" required>
+      <div id="time">
+        <input type="number" id="hIn" placeholder="hh" required>
+        <input type="number" id="mIn"placeholder="mm" required>
+      </div>
     </div>
 
-    <button type="button" name="submitButton" id="submitButton"> Visualize!</button>
+    <button type="button" id="submitButton"> Visualize!</button>
   </form>
 
 </div>
-<div id="creditspace">
-  <p id="credits"></p>
-</div>
-
+<p id="credits"></p>
 </body>
 
 </html>
