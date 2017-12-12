@@ -188,6 +188,7 @@ function drawText(){
   $("#subtitle").append("Reload page to enter a new date</br></br>");
   $("#subtitle").append("Birth: ", dateFormat(birth), "</br>");
   $("#subtitle").append("Today: ", dateFormat(today), "</br></br>");
+  $("#subtitle").append(parse("<b>This is your %sth day alive </br></br>", daysAlive+1));
   $("#subtitle").append("Years: ", yearsAlive, "</br>");
   $("#subtitle").append("Weeks: ", weeksAlive, "</br>");
   $("#subtitle").append("Days: ", daysAlive, "</br>");
