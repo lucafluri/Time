@@ -125,9 +125,8 @@
 
   .bottom {
     width: 100%;
-    height: 10px;
-    margin-bottom: 50px;
-    transform: translate(0, 1500px);
+    height: 50px;
+    transform: translate(0, 1550px);
   }
   .grid {
     height: 100%;
@@ -343,9 +342,9 @@
 
     .bottom {
       width: 100%;
-      height: 10px;
-      margin-bottom: 50px;
-      transform: translate(0, 3000px);
+      height: 50px;
+
+      transform: translate(0, 3050px);
     }
     .grid {
       height: 100%;
