@@ -156,6 +156,7 @@ function makeGrid(daysAlive, weeksAlive, yearsAlive){
         $("#main").append("<div class='grid-item toLive'></div>\n");
       }
     }
+    if(i==4160-1){$("#main").append("</div><div class='bottom'></div> ");}
   }
 /*
   for(var i = 0; i < (Math.round(4160-weeksAlive)); i++){
@@ -166,7 +167,7 @@ function makeGrid(daysAlive, weeksAlive, yearsAlive){
     }
   }*/
 
-  $("#main").append("</div>");
+
 
 
   /*Init Masonry*/
