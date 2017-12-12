@@ -17,27 +17,7 @@
 
   }
 
-  html {
-    min-height: 100%;
-    margin: 0;
-    background: -webkit-linear-gradient(#006BA1, #003A57) fixed; /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(#006BA1, #003A57) fixed; /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(#006BA1, #003A57) fixed; /* For Firefox 3.6 to 15 */
-    background: linear-gradient(#006BA1, #003A57) fixed; /* Standard syntax */
-    background-repeat: no-repeat;
-    background-size: cover;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-attachment: scroll;
 
-  }
-
-  body {
-    height: 100%;
-    margin: 0;
-
-  }
 
   p {
     font-family: 'Open Sans', sans-serif;  font-style: normal;
@@ -206,14 +186,37 @@
 
 
 
+@media (min-width: 1000px){
 
+  html {
+    min-height: 100%;
+    margin: 0;
+    background: -webkit-linear-gradient(#006BA1, #003A57) fixed; /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#006BA1, #003A57) fixed; /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#006BA1, #003A57) fixed; /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#006BA1, #003A57) fixed; /* Standard syntax */
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-attachment: scroll;
+
+  }
+
+  body {
+    height: 100%;
+    margin: 0;
+
+  }
+}
 
 
 @media (max-width: 1000px) {
 
     h1 {
       font-family: 'Kanit', sans-serif;  font-style: normal;
-      font-size: 100px;
+      font-size: 200px;
       font-weight: bold;
       text-align: center;
       margin-bottom: 0;
@@ -226,24 +229,14 @@
     html {
       min-height: 100%;
       margin: 0;
-
+      background-color: #006BA1
 
     }
 
     body {
-      height: 100%;
-      margin: 0;
-      position: static;
-      background: -webkit-linear-gradient(#006BA1, #003A57) fixed; /* For Safari 5.1 to 6.0 */
-      background: -o-linear-gradient(#006BA1, #003A57) fixed; /* For Opera 11.1 to 12.0 */
-      background: -moz-linear-gradient(#006BA1, #003A57) fixed; /* For Firefox 3.6 to 15 */
-      background: linear-gradient(#006BA1, #003A57) fixed; /* Standard syntax */
-      background-repeat: no-repeat;
+      background-color: #006BA1
       background-size: cover;
-      -webkit-background-size: cover;
-      -moz-background-size: cover;
-      -o-background-size: cover;
-      background-attachment: fixed;
+
     }
 
     p {
@@ -254,7 +247,7 @@
 
     #subtitle {
       font-family: 'Open Sans', sans-serif;  font-style: normal;
-      font-size: 20px;
+      font-size: 25px;
       color: #171717;
       position: relative;
       text-align: center;
