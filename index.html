@@ -24,14 +24,14 @@
 
 <div id="main">
 
-  <form class="dateInput" onsubmit="submit()" id="dateForm" action="" method="post">
+  <form class="dateInput" onsubmit="submit()" name="dateForm" id="dateForm" action="" method="post">
     <div id="inputs">
-      <input type="number" id="dayIn" placeholder="DD" required>
-      <input type="number" id="monthIn" placeholder="MM" required>
-      <input type="number" id="yearIn"placeholder="YYYY" required>
+      <input type="tel" name="dayIn" id="dayIn" placeholder="DD" required onKeyup="autotab(this, document.dateForm.monthIn)" size="2" maxlength="2">
+      <input type="tel" name="monthIn" id="monthIn" placeholder="MM" required onKeyup="autotab(this, document.dateForm.yearIn)" size="2" maxlength="2">
+      <input type="tel" name="yearIn" id="yearIn" placeholder="YYYY" required onKeyup="autotab(this, document.dateForm.hIn)" size="4" maxlength="4">
       <div id="time">
-        <input type="number" id="hIn" placeholder="hh" required>
-        <input type="number" id="mIn"placeholder="mm" required>
+        <input type="tel" name="hIn" id="hIn" placeholder="hh" onKeyup="autotab(this, document.dateForm.mIn)" size="2" maxlength="2">
+        <input type="tel" name="mIn" id="mIn"placeholder="mm" onKeyup="autotab(this, document.dateForm.submitButton)" size="2" maxlength="2">
       </div>
     </div>
 
