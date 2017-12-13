@@ -127,7 +127,7 @@ function calcDiff(day, month, year, hours, minutes){
   hrsAlive = Date.DateDiff("h", birth, today, 1);
   daysAlive = Date.DateDiff("d", birth, today, 1);
   weeksAlive = Date.DateDiff("w", birth, today, 1);
-  yearsAlive = (Date.DateDiff("ms", birth, today, 1)/1000/60/60/24/7/52).toFixed(9);
+  yearsAlive = (Date.DateDiff("ms", birth, today, 1)/1000/60/60/24/365.25).toFixed(9);
 
 
 
