@@ -41,8 +41,11 @@ function checkInput(){
           minutes = 0;
         }
         setTimeout(calcDiff(day, month, year, hours, minutes), 300);
-
-
+        /*
+        for(var i = 1950; i<=2016; i++){
+          console.log(i, getMeanYear(i, 2017));
+        }
+        */
         makeGrid(daysAlive, weeksAlive, yearsAlive);
 
         window.setInterval(function(){
@@ -115,7 +118,25 @@ Date.DateDiff = function(p_Interval, p_Date1, p_Date2, p_FirstDayOfWeek){
 	}
 }
 
+function getMeanYear(start, end){
+  var mean = 0;
+  for(var i = start; i < end; i++){
+    if(i%4==0 && (i%100!=0 || i%400==0)){
+      mean += 366;
+    }
+    else{
+      mean += 365;
+    }
+  }
+  if(start%4==0 && (start%100!=0 || start%400==0)){
+    mean = (mean-1)/(end-start).toFixed(9);
+  }
+  else{
+    mean = (mean)/(end-start).toFixed(9);
+  }
+  return mean;
 
+}
 
 function calcDiff(day, month, year, hours, minutes){
 
@@ -127,7 +148,7 @@ function calcDiff(day, month, year, hours, minutes){
   hrsAlive = Date.DateDiff("h", birth, today, 1);
   daysAlive = Date.DateDiff("d", birth, today, 1);
   weeksAlive = Date.DateDiff("w", birth, today, 1);
-  yearsAlive = (Date.DateDiff("ms", birth, today, 1)/1000/60/60/24/365.25).toFixed(9);
+  yearsAlive = (Date.DateDiff("ms", birth, today, 1)/1000/60/60/24/getMeanYear(birth.getUTCFullYear(), today.getUTCFullYear())).toFixed(9); //31'557'600 = sec per year (per day 86400sec SI unit)
 
 
 
@@ -191,6 +212,7 @@ function drawText(){
   $("#subtitle").append("Today: ", dateFormat(today), "</br></br>");
   $("#subtitle").append(parse("<b>This is your %sth day alive </br></br>", daysAlive+1));
   $("#subtitle").append("Years: ", yearsAlive, "</br>");
+  //$("#subtitle").append("Average year: ", getMeanYear(birth, today).toFixed(3), "</br>");
   $("#subtitle").append("Weeks: ", weeksAlive, "</br>");
   $("#subtitle").append("Days: ", daysAlive, "</br>");
   $("#subtitle").append("Hours: ", hrsAlive, "</br>");
