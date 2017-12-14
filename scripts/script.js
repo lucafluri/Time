@@ -41,11 +41,17 @@ function checkInput(){
           minutes = 0;
         }
         setTimeout(calcDiff(day, month, year, hours, minutes), 300);
+
         /*
+        var max = 2021;
+        var td = new Date(max, 11, 14, 0, 0, 0, 0);
         for(var i = 1950; i<=2016; i++){
-          console.log(i, getMeanYear(i, 2017));
+          var bt = new Date(i, 11, 14, 0, 0, 0, 0);
+          var years = (Date.DateDiff("ms", bt, td, 1)/1000/60/60/24/getMeanYear(bt.getUTCFullYear(), td.getUTCFullYear())).toFixed(9);
+          console.log(i, getMeanYear(i, max), years);
         }
         */
+
         makeGrid(daysAlive, weeksAlive, yearsAlive);
 
         window.setInterval(function(){
@@ -118,23 +124,28 @@ Date.DateDiff = function(p_Interval, p_Date1, p_Date2, p_FirstDayOfWeek){
 	}
 }
 
+function isLeapYear(y){
+  return (y%4==0 && (y%100!=0 || y%400==0));
+}
+
 function getMeanYear(start, end){
   var mean = 0;
   for(var i = start; i < end; i++){
-    if(i%4==0 && (i%100!=0 || i%400==0)){
+    if(isLeapYear(i)){
       mean += 366;
     }
     else{
       mean += 365;
     }
   }
-  if(start%4==0 && (start%100!=0 || start%400==0)){
-    mean = (mean-1)/(end-start).toFixed(9);
+  if(isLeapYear(start)){
+    mean -= 1;
   }
-  else{
-    mean = (mean)/(end-start).toFixed(9);
+  if(isLeapYear(end)){
+    mean += 1;
   }
-  return mean;
+
+  return mean/(end-start).toFixed(9);
 
 }
 
