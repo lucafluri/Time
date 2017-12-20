@@ -229,6 +229,8 @@ function drawText(){
   $("#subtitle").append("Hours: ", hrsAlive, "</br>");
   $("#subtitle").append("Minutes: ", minAlive, "</br>");
   $("#subtitle").append("Seconds: ", secAlive, "</br>");
+
+  $("#counter").remove();
 }
 
 
