@@ -2,9 +2,6 @@
 
 
 
-
-
-
   h1 {
     font-family: 'Kanit', sans-serif;  font-style: normal;
     font-size: 100px;
@@ -21,14 +18,14 @@
 
   p {
     font-family: 'Open Sans', sans-serif;  font-style: normal;
-    color: #171717;
+    color: #000000;
     text-align: center;
   }
 
   #subtitle {
     font-family: 'Open Sans', sans-serif;  font-style: normal;
     font-size: 20px;
-    color: #171717;
+    color: #000000;
     text-align: center;
     margin-bottom: 40px;
 
@@ -93,7 +90,7 @@
     font-family: 'Open Sans', sans-serif;  font-style: normal;
     font-style: normal;
     font-size: 20px;
-    background: #e1ff00;
+    background: #f3c72a;
     padding: 10px 20px 10px 20px;
     text-decoration: none;
     border: none;
@@ -107,7 +104,7 @@
   }
 
   #submitButton:hover, #submitButton:focus {
-    background: #bbd400;
+    background: #cfa820;
     text-decoration: none;
     border: none;
     outline: none !important;
@@ -155,7 +152,7 @@
   }
 
   .cyear {
-    background: #ff0000;
+    background: #d00000;
     font-family: 'Kanit', sans-serif;  font-style: normal;
     font-size: 12px;
     text-align: center;
@@ -169,7 +166,7 @@
   }
 
   .toLive {
-    background: #e1ff00;
+    background: #f3c72a;
   }
 
 
@@ -206,17 +203,17 @@
   html {
     min-height: 100%;
     margin: 0;
-    background: -webkit-linear-gradient(#006BA1, #003A57) fixed; /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(#006BA1, #003A57) fixed; /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(#006BA1, #003A57) fixed; /* For Firefox 3.6 to 15 */
-    background: linear-gradient(#006BA1, #003A57) fixed; /* Standard syntax */
+    background: -webkit-linear-gradient(#136def, #0444a4) fixed; /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#136def, #0444a4) fixed; /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#136def, #0444a4) fixed; /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#136def, #0444a4) fixed; /* Standard syntax */
     background-repeat: no-repeat;
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-attachment: scroll;
-    background-color: #003A57
+    background-color: #0444a4
   }
 
   body {
@@ -244,12 +241,12 @@
     html {
       min-height: 100%;
       margin: 0;
-      background-color: #006BA1
+      background-color: #0444a4
 
     }
 
     body {
-      background-color: #006BA1
+      background-color: #0444a4
       background-size: cover;
 
     }
@@ -258,7 +255,7 @@
     #subtitle {
       font-family: 'Open Sans', sans-serif;  font-style: normal;
       font-size: 25px;
-      color: #171717;
+      color: #000000;
       position: relative;
       text-align: center;
       margin-bottom: 40px;
@@ -323,7 +320,7 @@
       font-family: 'Open Sans', sans-serif;  font-style: normal;
       font-style: normal;
       font-size: 20px;
-      background: #e1ff00;
+      background: #f3c72a;
       padding: 10px 20px 10px 20px;
       text-decoration: none;
       border: none;
@@ -337,7 +334,7 @@
     }
 
     #submitButton:hover, #submitButton:focus {
-      background: #bbd400;
+      background: #cfa820;
       text-decoration: none;
       border: none;
       outline: none !important;
@@ -382,7 +379,7 @@
     }
 
     .cyear {
-      background: #ff0000;
+      background: #d00000;
       font-family: 'Kanit', sans-serif;  font-style: normal;
       font-size: 12px;
       text-align: center;
@@ -396,7 +393,7 @@
     }
 
     .toLive {
-      background: #e1ff00;
+      background: #f3c72a;
     }
 
 
