@@ -238,7 +238,7 @@ function drawText(){
 
 $(function() {
   var d = new Date();
-  $("#credits").html("(C) " + d.getFullYear() + " by Luca Fluri" );
+  $("#credits").html("(C) " + d.getFullYear() + ' by <a href="http://www.lucafluri.ch">Luca Fluri</a>' );
   checkInput();
 
 
