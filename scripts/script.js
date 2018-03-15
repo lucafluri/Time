@@ -173,7 +173,7 @@ function makeGrid(daysAlive, weeksAlive, yearsAlive){
   $("#main").append("<div class='grid-sizer'></div>\n");
 
   for(var i = 0; i < 4160; i++){
-    if(i <= weeksAlive){
+    if(i <= (yearsAlive*52).toFixed(0)-1){
       if(i%52==51 && i/52!=0){
         $("#main").append(parse("<div class='grid-item cyear'>%s</div>\n", Math.ceil(i/52)));
       }
