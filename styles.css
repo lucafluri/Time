@@ -9,6 +9,7 @@
     text-align: center;
     margin-bottom: 0;
     position: relative;
+    color: #ffffff;
 
 
 
@@ -18,21 +19,21 @@
 
   p {
     font-family: 'Open Sans', sans-serif;  font-style: normal;
-    color: #000000;
+    color: #ffffff;
     text-align: center;
   }
 
   #subtitle {
     font-family: 'Open Sans', sans-serif;  font-style: normal;
     font-size: 20px;
-    color: #000000;
+    color: #ffffff;
     text-align: center;
     margin-bottom: 40px;
 
   }
 
   a:link, a:visited, a:hover a:active {
-    color: #000000
+    color: #ffffff
     
   }
 
@@ -160,7 +161,8 @@
     font-family: 'Kanit', sans-serif;  font-style: normal;
     font-size: 12px;
     text-align: center;
-    vertical-align: middle;;
+    vertical-align: middle;
+    
 
 
   }
@@ -250,7 +252,7 @@
     }
 
     body {
-      background-color: #0444a4
+      background-color: #0444a4;
       background-size: cover;
 
     }
@@ -259,7 +261,7 @@
     #subtitle {
       font-family: 'Open Sans', sans-serif;  font-style: normal;
       font-size: 25px;
-      color: #000000;
+      color: #ffffff;
       position: relative;
       text-align: center;
       margin-bottom: 40px;
@@ -387,7 +389,8 @@
       font-family: 'Kanit', sans-serif;  font-style: normal;
       font-size: 12px;
       text-align: center;
-      vertical-align: middle;;
+      vertical-align: middle;
+      /* color: #ffffff; */
 
 
     }
@@ -422,6 +425,7 @@
         left: 50%;
         top: 200px;
         transform: translate(-50%);
+        
     }
 
 }
