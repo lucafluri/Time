@@ -1,373 +1,240 @@
-/*Functions*/
-/* 80Years = 4160 weeks = 29120 days
-Display Every Week
-*/
+(() => {
+  "use strict";
 
+  /* ── Constants ─────────────────────────────── */
+  const LIFE_YEARS = 85;
+  const WEEKS_PER_YEAR = 52;
+  const TOTAL_WEEKS = LIFE_YEARS * WEEKS_PER_YEAR;
+  const MS_PER_SEC = 1000;
+  const MS_PER_MIN = 60 * MS_PER_SEC;
+  const MS_PER_HOUR = 60 * MS_PER_MIN;
+  const MS_PER_DAY = 24 * MS_PER_HOUR;
+  const MS_PER_WEEK = 7 * MS_PER_DAY;
 
-function parse(str) {
-    var args = [].slice.call(arguments, 1),
-        i = 0;
+  /* ── DOM refs ──────────────────────────────── */
+  const $ = (sel) => document.querySelector(sel);
+  const hero = $("#hero");
+  const form = $("#dateForm");
+  const resultsEl = $("#results");
+  const gridEl = $("#grid");
+  const statsEl = $("#stats");
+  const creditsEl = $("#credits");
+  const resetBtn = $("#resetButton");
 
-    return str.replace(/%s/g, function() {
-        return args[i++];
+  /* ── State ─────────────────────────────────── */
+  let birthDate = null;
+  let tickInterval = null;
+
+  /* ── Helpers ───────────────────────────────── */
+  function formatNumber(n) {
+    return n.toLocaleString("en-US");
+  }
+
+  function formatDate(d) {
+    return d.toLocaleDateString("en-US", {
+      weekday: "short",
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
     });
-}
+  }
 
-function autotab(current,to){
-    if (current.getAttribute &&
-      current.value.length==current.getAttribute("maxlength")) {
-        to.focus()
+  function ordinal(n) {
+    const s = ["th", "st", "nd", "rd"];
+    const v = n % 100;
+    return n + (s[(v - 20) % 10] || s[v] || s[0]);
+  }
+
+  function calcDiff(birth) {
+    const now = new Date();
+    const diffMs = now - birth;
+    return {
+      ms: diffMs,
+      seconds: Math.floor(diffMs / MS_PER_SEC),
+      minutes: Math.floor(diffMs / MS_PER_MIN),
+      hours: Math.floor(diffMs / MS_PER_HOUR),
+      days: Math.floor(diffMs / MS_PER_DAY),
+      weeks: Math.floor(diffMs / MS_PER_WEEK),
+      years: diffMs / MS_PER_DAY / 365.2425,
+      birth,
+      now,
+    };
+  }
+
+  /* ── Auto-tab between inputs ───────────────── */
+  function setupAutoTab() {
+    const inputs = ["dayIn", "monthIn", "yearIn", "hIn", "mIn"];
+    inputs.forEach((id, i) => {
+      const el = document.getElementById(id);
+      el.addEventListener("input", () => {
+        if (el.value.length >= parseInt(el.maxLength) && i < inputs.length - 1) {
+          document.getElementById(inputs[i + 1]).focus();
         }
-}
+      });
+    });
+  }
 
+  /* ── Validation ────────────────────────────── */
+  function validate(day, month, year) {
+    const now = new Date();
+    return (
+      day >= 1 && day <= 31 &&
+      month >= 1 && month <= 12 &&
+      year > now.getFullYear() - 120 && year <= now.getFullYear()
+    );
+  }
 
-function checkInput(){
-  $("#submitButton").on("click", function() {
-    var date = new Date();
-    var day = $("#dayIn").val();
-    var month = $("#monthIn").val();
-    var year = $("#yearIn").val();
-    var hours = $("#hIn").val();
-    var minutes = $("#mIn").val();
+  /* ── Calculate grid position from real dates ── */
+  function getLifePosition(birth) {
+    const now = new Date();
+    const ageThisYear = now.getFullYear() - birth.getFullYear();
+    const birthdayThisYear = new Date(now.getFullYear(), birth.getMonth(), birth.getDate());
+    const completedYears = now < birthdayThisYear ? ageThisYear - 1 : ageThisYear;
 
+    const lastBirthday = new Date(
+      birth.getFullYear() + completedYears,
+      birth.getMonth(),
+      birth.getDate()
+    );
+    const weeksSinceLastBirthday = Math.min(
+      Math.floor((now - lastBirthday) / MS_PER_WEEK),
+      WEEKS_PER_YEAR - 1
+    );
 
-    if((0 < day && day <= 31) && (0 < month && month <= 12) && ((date.getFullYear()-110) < year && year <= date.getFullYear())){
-        $("#dateForm").slideUp(300);
-        $("#submitButton").slideUp(300);
-        $("#credits").hide(0);
+    return { completedYears, weeksSinceLastBirthday };
+  }
 
-        if(isNaN(hours) || isNaN(minutes)){
-          hours = 0;
-          minutes = 0;
+  /* ── Build Grid (DocumentFragment for perf) ── */
+  function buildGrid() {
+    const { completedYears, weeksSinceLastBirthday } = getLifePosition(birthDate);
+    const frag = document.createDocumentFragment();
+
+    for (let year = 0; year < LIFE_YEARS; year++) {
+      const label = document.createElement("span");
+      label.className = "year-label";
+      if (year % 10 === 0) label.classList.add("year-label--decade");
+      label.textContent = year;
+      frag.appendChild(label);
+
+      for (let week = 0; week < WEEKS_PER_YEAR; week++) {
+        const dot = document.createElement("div");
+        dot.className = "week";
+
+        if (year < completedYears) {
+          dot.classList.add("week--lived");
+        } else if (year === completedYears && week < weeksSinceLastBirthday) {
+          dot.classList.add("week--lived");
+        } else if (year === completedYears && week === weeksSinceLastBirthday) {
+          dot.classList.add("week--now");
+        } else {
+          dot.classList.add("week--future");
         }
-        setTimeout(calcDiff(day, month, year, hours, minutes), 300);
 
-        /*
-        var max = 2021;
-        var td = new Date(max, 11, 14, 0, 0, 0, 0);
-        for(var i = 1950; i<=2016; i++){
-          var bt = new Date(i, 11, 14, 0, 0, 0, 0);
-          var years = (Date.DateDiff("ms", bt, td, 1)/1000/60/60/24/getMeanYear(bt.getUTCFullYear(), td.getUTCFullYear())).toFixed(9);
-          console.log(i, getMeanYear(i, max), years);
-        }
-        */
-
-        makeGrid(daysAlive, weeksAlive, yearsAlive);
-
-        window.setInterval(function(){
-          calcDiff(day, month, year, hours, minutes);
-          drawText();
-        }, 50)
-
-      }
-    else {
-      alert("Please enter valid birthdate");
-      document.getElementById("dateForm").reset();
-    }
-  });
-}
-
-//Based on script from Rob Eberhardt of slingfive.com
-Date.DateDiff = function(p_Interval, p_Date1, p_Date2, p_FirstDayOfWeek){
-	p_FirstDayOfWeek = (isNaN(p_FirstDayOfWeek) || p_FirstDayOfWeek==0) ? vbSunday : parseInt(p_FirstDayOfWeek);
-
-	var dt1 = p_Date1;
-	var dt2 = p_Date2;
-
-	//correct Daylight Savings Ttime (DST)-affected intervals ("d" & bigger)
-	if("h,n,s,ms".indexOf(p_Interval.toLowerCase())==-1){
-		if(p_Date1.toString().indexOf(":") ==-1){ dt1.setUTCHours(0,0,0,0) };	// no time, assume 12am
-		if(p_Date2.toString().indexOf(":") ==-1){ dt2.setUTCHours(0,0,0,0) };	// no time, assume 12am
-	}
-
-
-	// get ms between UTC dates and make into "difference" date
-	var iDiffMS = dt2.valueOf() - dt1.valueOf();
-	var dtDiff = new Date(iDiffMS);
-
-	// calc various diffs
-	var nYears  = dt2.getUTCFullYear() - dt1.getUTCFullYear();
-	var nMonths = dt2.getUTCMonth() - dt1.getUTCMonth() + (nYears!=0 ? nYears*12 : 0);
-	var nQuarters = parseInt(nMonths / 3);
-
-	var nMilliseconds = iDiffMS;
-	var nSeconds = parseInt(iDiffMS / 1000);
-	var nMinutes = parseInt(nSeconds / 60);
-	var nHours = parseInt(nMinutes / 60);
-	var nDays  = parseInt(nHours / 24);	//now fixed for DST switch days
-	var nWeeks = parseInt(nDays / 7);
-
-	if(p_Interval.toLowerCase()=='ww'){
-			// set dates to 1st & last FirstDayOfWeek
-			var offset = Date.DatePart("w", dt1, p_FirstDayOfWeek)-1;
-			if(offset){	dt1.setDate(dt1.getDate() +7 -offset);	}
-			var offset = Date.DatePart("w", dt2, p_FirstDayOfWeek)-1;
-			if(offset){	dt2.setDate(dt2.getDate() -offset);	}
-			// recurse to "w" with adjusted dates
-			var nCalWeeks = Date.DateDiff("w", dt1, dt2) + 1;
-	}
-
-	// return difference
-	switch(p_Interval.toLowerCase()){
-		case "yyyy": return nYears;
-		case "q": return nQuarters;
-		case "m": return nMonths;
-		case "y": // day of year
-		case "d": return nDays;
-		case "w": return nWeeks;
-		case "ww":return nCalWeeks; // week of year
-		case "h": return nHours;
-		case "n": return nMinutes;
-		case "s": return nSeconds;
-		case "ms":return nMilliseconds;
-		default : return "invalid interval: '" + p_Interval + "'";
-	}
-}
-
-function isLeapYear(y){
-  return (y%4==0 && (y%100!=0 || y%400==0));
-}
-
-function getMeanYear(start, end){
-  var mean = 0;
-  for(var i = start; i < end; i++){
-    if(isLeapYear(i)){
-      mean += 366;
-    }
-    else{
-      mean += 365;
-    }
-  }
-  if(isLeapYear(start)){
-    mean -= 1;
-  }
-  if(isLeapYear(end)){
-    mean += 1;
-  }
-
-  return mean/(end-start).toFixed(9);
-
-}
-
-function calcDiff(day, month, year, hours, minutes){
-
-  birth = new Date(year,month-1,day, hours, minutes, 0, 0);
-  today = new Date();
-
-  secAlive = Date.DateDiff("s", birth, today, 1);
-  minAlive = Date.DateDiff("n", birth, today, 1);
-  hrsAlive = Date.DateDiff("h", birth, today, 1);
-  daysAlive = Date.DateDiff("d", birth, today, 1);
-  weeksAlive = Date.DateDiff("w", birth, today, 1);
-  yearsAlive = (Date.DateDiff("ms", birth, today, 1)/1000/60/60/24/getMeanYear(birth.getUTCFullYear(), today.getUTCFullYear())).toFixed(9); //31'557'600 = sec per year (per day 86400sec SI unit)
-
-
-
-}
-
-function makeGrid(daysAlive, weeksAlive, yearsAlive){
-  /*HTML TEST*/
-  /*$("#main").html("<p>TEST</p>");*/
-
-  $("#main").html("<div class='grid'>\n");
-  $("#main").append("<div class='grid-sizer'></div>\n");
-
-  for(var i = 0; i < 4160; i++){
-    if(i <= (yearsAlive*52).toFixed(0)-1){
-      if(i%52==51 && i/52!=0){
-        $("#main").append(parse("<div class='grid-item cyear'>%s</div>\n", Math.ceil(i/52)));
-      }
-      else{
-        $("#main").append("<div class='grid-item lived'></div>\n");
+        frag.appendChild(dot);
       }
     }
-    else{
-      if(i%52==51){
-        $("#main").append(parse("<div class='grid-item cyear'>%s</div>\n", Math.ceil(i/52)));
-      }else{
-        $("#main").append("<div class='grid-item toLive'></div>\n");
-      }
-    }
-    if(i==4160-1){$("#main").append("</div><div class='bottom'></div> ");}
+
+    gridEl.innerHTML = "";
+    gridEl.appendChild(frag);
   }
-/*
-  for(var i = 0; i < (Math.round(4160-weeksAlive)); i++){
-    if(i%52==51){
-      $("#main").append(parse("<div class='grid-item cyear'>%s</div>\n", Math.ceil((weeksAlive/52)+(i/52))));
-    }else{
-      $("#main").append("<div class='grid-item toLive'></div>\n");
+
+  /* ── Update Stats ──────────────────────────── */
+  function updateStats(diff) {
+    const birthStr = birthDate.toLocaleDateString("en-US", {
+      year: "numeric", month: "long", day: "numeric",
+    });
+    statsEl.innerHTML = `
+      <div class="stats-headline">This is your ${ordinal(diff.days + 1)} day alive</div>
+      <div class="stats-birth">Born ${birthStr}</div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">${diff.years.toFixed(4)}</div>
+          <div class="stat-label">Years</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">${formatNumber(diff.weeks)}</div>
+          <div class="stat-label">Weeks</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">${formatNumber(diff.days)}</div>
+          <div class="stat-label">Days</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">${formatNumber(diff.hours)}</div>
+          <div class="stat-label">Hours</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">${formatNumber(diff.minutes)}</div>
+          <div class="stat-label">Minutes</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">${formatNumber(diff.seconds)}</div>
+          <div class="stat-label">Seconds</div>
+        </div>
+      </div>
+    `;
+  }
+
+  /* ── Show Results ──────────────────────────── */
+  function showResults() {
+    const diff = calcDiff(birthDate);
+
+    hero.classList.add("fade-out");
+    setTimeout(() => {
+      hero.classList.add("collapsed");
+      resultsEl.classList.remove("hidden");
+      creditsEl.classList.add("credits--static");
+      buildGrid();
+      updateStats(diff);
+
+      tickInterval = setInterval(() => {
+        updateStats(calcDiff(birthDate));
+      }, 1000);
+    }, 500);
+  }
+
+  /* ── Reset ─────────────────────────────────── */
+  function reset() {
+    if (tickInterval) clearInterval(tickInterval);
+    tickInterval = null;
+    birthDate = null;
+    gridEl.innerHTML = "";
+    resultsEl.classList.add("hidden");
+    hero.classList.remove("collapsed", "fade-out");
+    creditsEl.classList.remove("credits--static");
+    form.reset();
+    document.getElementById("dayIn").focus();
+  }
+
+  /* ── Form Submit ───────────────────────────── */
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    const day = parseInt(document.getElementById("dayIn").value);
+    const month = parseInt(document.getElementById("monthIn").value);
+    const year = parseInt(document.getElementById("yearIn").value);
+    let hours = parseInt(document.getElementById("hIn").value) || 0;
+    let minutes = parseInt(document.getElementById("mIn").value) || 0;
+
+    if (!validate(day, month, year)) {
+      form.classList.add("shake");
+      setTimeout(() => form.classList.remove("shake"), 400);
+      return;
     }
-  }*/
 
+    birthDate = new Date(year, month - 1, day, hours, minutes, 0, 0);
+    showResults();
+  }
 
+  /* ── Init ──────────────────────────────────── */
+  function init() {
+    creditsEl.innerHTML = `&copy; ${new Date().getFullYear()} <a href="https://www.lucafluri.ch">Luca Fluri</a>`;
+    setupAutoTab();
+    form.addEventListener("submit", handleSubmit);
+    resetBtn.addEventListener("click", reset);
+  }
 
-
-  /*Init Masonry*/
-  $('.grid').masonry({
-    itemSelector: '.grid-item',
-    columnWidth: '.grid-sizer',
-    percentPosition: true
-  });
-
-  drawText();
-
-}
-
-
-function drawText(){
-
-  $("#subtitle").html("This is your life until age 80.</br> Every bubble represents a week. </br> ");
-  $("#subtitle").append("You have already lived the black ones.</br></br>");
-  $("#subtitle").append("Reload page to enter a new date</br></br>");
-  $("#subtitle").append("Birth: ", dateFormat(birth), "</br>");
-  $("#subtitle").append("Today: ", dateFormat(today), "</br></br>");
-  $("#subtitle").append(parse("<b>This is your %sth day alive </br></br>", daysAlive+1));
-  $("#subtitle").append("Years: ", yearsAlive, "</br>");
-  //$("#subtitle").append("Average year: ", getMeanYear(birth, today).toFixed(3), "</br>");
-  $("#subtitle").append("Weeks: ", weeksAlive, "</br>");
-  $("#subtitle").append("Days: ", daysAlive, "</br>");
-  $("#subtitle").append("Hours: ", hrsAlive, "</br>");
-  $("#subtitle").append("Minutes: ", minAlive, "</br>");
-  $("#subtitle").append("Seconds: ", secAlive, "</br>");
-
-  $("#counter").remove();
-}
-
-
-
-
-$(function() {
-  var d = new Date();
-  $("#credits").html("(C) " + d.getFullYear() + ' by <a href="http://www.lucafluri.ch">Luca Fluri</a>' );
-  checkInput();
-
-
-});
-
-
-
-/*
- * Date Format 1.2.3
- * (c) 2007-2009 Steven Levithan <stevenlevithan.com>
- * MIT license
- *
- * Includes enhancements by Scott Trenda <scott.trenda.net>
- * and Kris Kowal <cixar.com/~kris.kowal/>
- *
- * Accepts a date, a mask, or a date and a mask.
- * Returns a formatted version of the given date.
- * The date defaults to the current date/time.
- * The mask defaults to dateFormat.masks.default.
- */
-
-var dateFormat = function () {
-	var	token = /d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTt])\1?|[LloSZ]|"[^"]*"|'[^']*'/g,
-		timezone = /\b(?:[PMCEA][SDP]T|(?:Pacific|Mountain|Central|Eastern|Atlantic) (?:Standard|Daylight|Prevailing) Time|(?:GMT|UTC)(?:[-+]\d{4})?)\b/g,
-		timezoneClip = /[^-+\dA-Z]/g,
-		pad = function (val, len) {
-			val = String(val);
-			len = len || 2;
-			while (val.length < len) val = "0" + val;
-			return val;
-		};
-
-	// Regexes and supporting functions are cached through closure
-	return function (date, mask, utc) {
-		var dF = dateFormat;
-
-		// You can't provide utc if you skip other args (use the "UTC:" mask prefix)
-		if (arguments.length == 1 && Object.prototype.toString.call(date) == "[object String]" && !/\d/.test(date)) {
-			mask = date;
-			date = undefined;
-		}
-
-		// Passing date through Date applies Date.parse, if necessary
-		date = date ? new Date(date) : new Date;
-		if (isNaN(date)) throw SyntaxError("invalid date");
-
-		mask = String(dF.masks[mask] || mask || dF.masks["default"]);
-
-		// Allow setting the utc argument via the mask
-		if (mask.slice(0, 4) == "UTC:") {
-			mask = mask.slice(4);
-			utc = true;
-		}
-
-		var	_ = utc ? "getUTC" : "get",
-			d = date[_ + "Date"](),
-			D = date[_ + "Day"](),
-			m = date[_ + "Month"](),
-			y = date[_ + "FullYear"](),
-			H = date[_ + "Hours"](),
-			M = date[_ + "Minutes"](),
-			s = date[_ + "Seconds"](),
-			L = date[_ + "Milliseconds"](),
-			o = utc ? 0 : date.getTimezoneOffset(),
-			flags = {
-				d:    d,
-				dd:   pad(d),
-				ddd:  dF.i18n.dayNames[D],
-				dddd: dF.i18n.dayNames[D + 7],
-				m:    m + 1,
-				mm:   pad(m + 1),
-				mmm:  dF.i18n.monthNames[m],
-				mmmm: dF.i18n.monthNames[m + 12],
-				yy:   String(y).slice(2),
-				yyyy: y,
-				h:    H % 12 || 12,
-				hh:   pad(H % 12 || 12),
-				H:    H,
-				HH:   pad(H),
-				M:    M,
-				MM:   pad(M),
-				s:    s,
-				ss:   pad(s),
-				l:    pad(L, 3),
-				L:    pad(L > 99 ? Math.round(L / 10) : L),
-				t:    H < 12 ? "a"  : "p",
-				tt:   H < 12 ? "am" : "pm",
-				T:    H < 12 ? "A"  : "P",
-				TT:   H < 12 ? "AM" : "PM",
-				Z:    utc ? "UTC" : (String(date).match(timezone) || [""]).pop().replace(timezoneClip, ""),
-				o:    (o > 0 ? "-" : "+") + pad(Math.floor(Math.abs(o) / 60) * 100 + Math.abs(o) % 60, 4),
-				S:    ["th", "st", "nd", "rd"][d % 10 > 3 ? 0 : (d % 100 - d % 10 != 10) * d % 10]
-			};
-
-		return mask.replace(token, function ($0) {
-			return $0 in flags ? flags[$0] : $0.slice(1, $0.length - 1);
-		});
-	};
-}();
-
-// Some common format strings
-dateFormat.masks = {
-	"default":      "ddd mmm dd yyyy HH:MM:ss",
-	shortDate:      "m/d/yy",
-	mediumDate:     "mmm d, yyyy",
-	longDate:       "mmmm d, yyyy",
-	fullDate:       "dddd, mmmm d, yyyy",
-	shortTime:      "h:MM TT",
-	mediumTime:     "h:MM:ss TT",
-	longTime:       "h:MM:ss TT Z",
-	isoDate:        "yyyy-mm-dd",
-	isoTime:        "HH:MM:ss",
-	isoDateTime:    "yyyy-mm-dd'T'HH:MM:ss",
-	isoUtcDateTime: "UTC:yyyy-mm-dd'T'HH:MM:ss'Z'"
-};
-
-// Internationalization strings
-dateFormat.i18n = {
-	dayNames: [
-		"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat",
-		"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
-	],
-	monthNames: [
-		"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
-		"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
-	]
-};
-
-// For convenience...
-Date.prototype.format = function (mask, utc) {
-	return dateFormat(this, mask, utc);
-};
+  document.addEventListener("DOMContentLoaded", init);
+})();

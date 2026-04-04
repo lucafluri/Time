@@ -1,46 +1,55 @@
-<!doctype html>
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=600">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TIME</title>
   <meta name="description" content="A minimalistic visualization of your life">
   <meta name="author" content="Luca Fluri">
   <link rel="shortcut icon" href="icon.ico">
-  <script src="jquery-1.11.3.min.js"></script>
-  <script src="masonry.pkgd.js "></script>
-  <script src="scripts/script.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-
   <meta name="google-site-verification" content="93c-l3iCnA_vMHMj2UVUVbCw8x2y-Eim1ajYuvLWCTQ" />
 </head>
-
 <body>
+  <div class="hero" id="hero">
+    <h1 class="title">TIME</h1>
+    <p class="subtitle" id="subtitle">A minimalistic visualization of your life</p>
 
-  <h1 id="title">TIME</h1>
-  <p id="subtitle">A minimalistic visualization of your life </br></br>Enter your birthdate and time (optional)</p>
-
-<div id="main">
-
-  <form class="dateInput" onsubmit="submit()" name="dateForm" id="dateForm" action="" method="post">
-    <div id="inputs">
-      <input type="tel" name="dayIn" id="dayIn" placeholder="DD" required onKeyup="autotab(this, document.dateForm.monthIn)" size="2" maxlength="2">
-      <input type="tel" name="monthIn" id="monthIn" placeholder="MM" required onKeyup="autotab(this, document.dateForm.yearIn)" size="2" maxlength="2">
-      <input type="tel" name="yearIn" id="yearIn" placeholder="YYYY" required onKeyup="autotab(this, document.dateForm.hIn)" size="4" maxlength="4">
-      <div id="time">
-        <input type="tel" name="hIn" id="hIn" placeholder="hh" onKeyup="autotab(this, document.dateForm.mIn)" size="2" maxlength="2">
-        <input type="tel" name="mIn" id="mIn"placeholder="mm" onKeyup="autotab(this, document.dateForm.submitButton)" size="2" maxlength="2">
+    <form class="form" id="dateForm" autocomplete="off">
+      <p class="form-label">Enter your birthdate</p>
+      <div class="input-row">
+        <input type="tel" id="dayIn" placeholder="DD" required maxlength="2" aria-label="Day">
+        <span class="separator">/</span>
+        <input type="tel" id="monthIn" placeholder="MM" required maxlength="2" aria-label="Month">
+        <span class="separator">/</span>
+        <input type="tel" id="yearIn" placeholder="YYYY" required maxlength="4" aria-label="Year">
       </div>
+      <p class="form-label form-label--small">Time (optional)</p>
+      <div class="input-row input-row--time">
+        <input type="tel" id="hIn" placeholder="hh" maxlength="2" aria-label="Hours">
+        <span class="separator">:</span>
+        <input type="tel" id="mIn" placeholder="mm" maxlength="2" aria-label="Minutes">
+      </div>
+      <button type="submit" class="btn" id="submitButton">Visualize</button>
+    </form>
+  </div>
+
+  <section class="results hidden" id="results">
+    <div class="stats" id="stats"></div>
+    <div class="legend">
+      <span class="legend-item"><span class="dot dot--lived"></span> Lived</span>
+      <span class="legend-item"><span class="dot dot--now"></span> This week</span>
+      <span class="legend-item"><span class="dot dot--future"></span> Remaining</span>
     </div>
+    <div class="grid" id="grid"></div>
+    <button class="btn btn--secondary" id="resetButton">Start over</button>
+  </section>
 
-    <button type="button" id="submitButton"> Visualize!</button>
-  </form>
+  <footer class="credits" id="credits"></footer>
 
-</div>
-<p id="credits"></p>
-
+  <script src="scripts/script.js"></script>
 </body>
-
 </html>
